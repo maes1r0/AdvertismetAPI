@@ -30,7 +30,7 @@ namespace AdvertisementsService.API
         {
             services.AddControllers();
 
-            services.AddDbContext<AdvertisementContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:AdService"]));
+            services.AddDbContext<AdvertisementContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AdService")));
 
             services.AddAutoMapper(typeof(AutoMapperProfile));
 
