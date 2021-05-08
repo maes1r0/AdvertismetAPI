@@ -69,3 +69,4 @@ namespace AdvertisementsService.API.Controllers
             return Json(new ResultMessageModel() { AddId = adService.GetAllAds().Last().Id, ResultCode = 201, Message = "Success" });
         }
     }
+}

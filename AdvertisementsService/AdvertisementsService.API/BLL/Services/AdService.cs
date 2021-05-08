@@ -47,16 +47,22 @@ namespace AdvertisementsService.API.BLL.Services
         }
         public object GetAd(int id, bool fields = false)
         {
-            if(fields == true)
+            var ad = data.AdvertisementRepository.Get(o => o.AdvertisementURIs, id);
+            if (ad != null)
             {
-                var temp = data.AdvertisementRepository.Get(o => o.AdvertisementURIs, id);
-                return map.Map<OptionalPresAdDTO>(temp);
+                if (fields == true)
+                {
+                    return map.Map<OptionalPresAdDTO>(data.AdvertisementRepository.Get(o => o.AdvertisementURIs, id));
+                }
+                else
+                {
+                    return map.Map<SmallPresAdDTO>(data.AdvertisementRepository.Get(o => o.AdvertisementURIs, id));
+                }
             }
             else
             {
-                return map.Map<Advertisement, SmallPresAdDTO>(data.AdvertisementRepository.Get(o => o.AdvertisementURIs, id)); 
-            }
-            
+                return ad;
+            } 
         }
         public bool CreateAd(DefaultAdDTO item)
         {

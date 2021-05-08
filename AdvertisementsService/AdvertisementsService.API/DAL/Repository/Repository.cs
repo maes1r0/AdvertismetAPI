@@ -26,7 +26,14 @@ namespace AdvertisementsService.API.DAL.Repository
         }
         public TPrimaryEntity Get( Expression<Func<TPrimaryEntity, List<TSlaveEntity>>> o, int id)
         {
-            return context.Set<TPrimaryEntity>().Include(o).Where(o => o.Id == id).First();
+            if (context.Set<TPrimaryEntity>().Any(o => o.Id == id)) 
+            {
+                return context.Set<TPrimaryEntity>().Include(o).Where(o => o.Id == id).First();
+            }
+            else
+            {
+                return null;
+            } 
         }
         public void Create(TPrimaryEntity item)
         {
